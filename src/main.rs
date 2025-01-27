@@ -5,10 +5,15 @@ mod util;
 
 use std::{
     io::{stderr, BufWriter, Stderr},
-    os::unix::process::ExitStatusExt as _,
     panic,
     process::ExitCode,
 };
+
+#[cfg(target_os = "linux")]
+use std::os::unix::process::ExitStatusExt as _;
+
+#[cfg(target_os = "windows")]
+use std::os::windows::process::ExitStatusExt as _;
 
 use clap::{Args, Parser, ValueEnum};
 use ratatui::{
